@@ -1,7 +1,17 @@
 import './App.css';
+import { useState } from 'react';
+import { nanoid } from 'nanoid';
 import DateTime from './components/DateTime';
+import Form from './components/Form';
 
 function App(props) {
+  const [wins, setWins] = useState(props.wins);
+
+  function addWin(name) {
+    const newWin = { id: `win-${nanoid()}`, name};
+    setWins([...wins, newWin])
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -10,9 +20,9 @@ function App(props) {
           Celebrate Your Daily Wins
         </h2>
        
-        <h3>What I accomplished today:
-        </h3>
         <DateTime />
+
+        <Form addWin={addWin}/>
 
          
       </header>
