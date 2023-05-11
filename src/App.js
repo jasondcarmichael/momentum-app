@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import DateTime from './components/DateTime';
 import Form from './components/Form';
+import Win from './components/Win';
 
 function App(props) {
   const [wins, setWins] = useState(props.wins);
@@ -11,6 +12,8 @@ function App(props) {
     const newWin = { id: `win-${nanoid()}`, name};
     setWins([...wins, newWin])
   }
+
+  const winsList = props.wins?.map((win) => win.name)
 
   return (
     <div className="App">
@@ -23,6 +26,11 @@ function App(props) {
         <DateTime />
 
         <Form addWin={addWin}/>
+
+        {/* <ul>{winsList}</ul> */}
+        <ul className="win-list stack-large stack exception">
+          <Win />
+        </ul>
 
          
       </header>
