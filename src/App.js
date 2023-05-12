@@ -6,14 +6,29 @@ import Form from './components/Form';
 import Win from './components/Win';
 
 function App(props) {
-  const [wins, setWins] = useState(props.wins);
+  const [wins, setWins] = useState('');
+  
+  console.log(props.wins)
 
-  function addWin(name) {
-    const newWin = { id: `win-${nanoid()}`, name};
-    setWins([...wins, newWin])
-  }
+  // function addWin(name) {
+  //   alert(name)
+  // }
 
-  const winsList = props.wins?.map((win) => win.name)
+  // function addWin(name) {
+  //   const newWin = { id: `win-${nanoid()}`, name};
+  //   setWins([...wins, newWin])
+  // }
+
+  // const winsList = props.wins.map((win) => <Win />);
+
+  const winsList = props.wins.map((win) => (
+    <Win 
+      id={win.id} 
+      name={win.name} 
+      completed={win.completed} 
+      key={win.id}
+    />
+  ));
 
   return (
     <div className="App">
@@ -24,12 +39,13 @@ function App(props) {
         </h2>
        
         <DateTime />
+        <Form />
 
-        <Form addWin={addWin}/>
+        {/* <Form addWin={addWin}/> */}
 
-        {/* <ul>{winsList}</ul> */}
+        
         <ul className="win-list stack-large stack exception">
-          <Win />
+          {winsList}
         </ul>
 
          
