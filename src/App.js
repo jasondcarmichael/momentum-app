@@ -8,12 +8,6 @@ import Win from './components/Win';
 function App(props) {
   const [wins, setWins] = useState(props.wins);
   
-  
-
-  // function addWin(name) {
-  //   alert(name)
-  // }
-
   function addWin(name) {
     const newWin = { id: `win-${nanoid()}`, name};
     setWins([...wins, newWin])
@@ -28,6 +22,11 @@ function App(props) {
     />
   ));
 
+  
+  const winsNoun = winsList.length !== 1 ? "accomplishments" : "accomplishment";
+  const winsHeading = `${winsList.length} ${winsNoun} today!`
+
+
   return (
     <div className="App">
       <header className="App-header">
@@ -41,7 +40,9 @@ function App(props) {
 
         <Form addWin={addWin}/>
 
-        
+        <h3 id="list-heading" tabIndex="-1">
+          {winsHeading}
+        </h3>
         <ul className="win-list stack-large stack exception">
           {winsList}
         </ul>
