@@ -13,12 +13,18 @@ function App(props) {
     setWins([...wins, newWin])
   }
 
+  function deleteWin(id) {
+    const remainingWins = wins.filter((win) => id !== win.id);
+    setWins(remainingWins);
+  }
+
   const winsList = wins.map((win) => (
     <Win 
       id={win.id} 
       name={win.name} 
       completed={win.completed} 
       key={win.id}
+      deleteWin={deleteWin}
     />
   ));
 
