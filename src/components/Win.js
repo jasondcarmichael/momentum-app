@@ -2,17 +2,39 @@ import { useState } from "react"
 
 export default function Win(props) {
     const [isEditing, setEditing] = useState(false);
+    const [newName, setNewName] = useState("");
+
+    function handleChange(e) {
+        setNewName(e.target.value);
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        props.editWin(props.id, newName);
+        setNewName("");
+        setEditing(false);
+    }
 
     const editingForm = (
-        <form className="stack-small">
+        <form className="stack-small" onSubmit={handleSubmit}>
             <div className="form-group">
             <label className="win-label" htmlFor={props.id}>
                 New name for {props.name}
             </label>
-            <input id={props.id} className="win-text" type="text" />
+            <input
+                id={props.id} 
+                className="win-text" 
+                type="text"
+                value={newName}
+                onChange={handleChange}
+            />
             </div>
             <div className="btn-group">
-            <button type="button" className="btn win-cancel">
+            <button
+                type="button" 
+                className="btn win-cancel"
+                onClick={() => setEditing(false)}
+            >
                 Cancel
                 <span className="visually-hidden">renaming {props.name}</span>
             </button>
@@ -37,13 +59,18 @@ export default function Win(props) {
                 </label>
             </div>
             <div className="btn-group">
-                <button type="button" className="btn">
+                <button
+                    type="button"
+                    className="btn"
+                    onClick={() => setEditing(true)}
+                >
                 Edit <span className="visually-hidden">{props.name}</span>
                 </button>
                 <button 
                     type="button" 
                     className="btn btn__danger"
-                    onClick={() => props.deleteWin(props.id)}>
+                    onClick={() => props.deleteWin(props.id)}
+                >
                 Delete <span className="visually-hidden">{props.name}</span>
                 </button>
             </div>
@@ -52,31 +79,4 @@ export default function Win(props) {
 
     return <li className="win">{isEditing ? editingForm : viewWin}</li>;
 
-
-
-    // return (
-    //     <li className="win stack-small">
-    //         <div className="c-cb">
-    //             <input 
-    //                 id={props.id}
-    //                 type="checkbox" 
-    //                 defaultChecked={true}
-    //             />
-    //             <label className="win-label" htmlFor={props.id}>
-    //                 {props.name}
-    //             </label>
-    //         </div>
-    //         <div className="btn-group">
-    //             <button type="button" className="btn">
-    //             Edit <span className="visually-hidden">{props.name}</span>
-    //             </button>
-    //             <button 
-    //                 type="button" 
-    //                 className="btn btn__danger"
-    //                 onClick={() => props.deleteWin(props.id)}>
-    //             Delete <span className="visually-hidden">{props.name}</span>
-    //             </button>
-    //         </div>
-    //     </li>
-    // )
 }
