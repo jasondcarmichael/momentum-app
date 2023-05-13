@@ -18,6 +18,16 @@ function App(props) {
     setWins(remainingWins);
   }
 
+  function editWin(id, newName) {
+    const editedWinsList = wins.map((win) => {
+      if (id === win.id) {
+        return { ...win, name: newName };
+      }
+      return win;
+    });
+    setWins(editedWinsList)
+  }
+
   const winsList = wins.map((win) => (
     <Win 
       id={win.id} 
@@ -25,6 +35,7 @@ function App(props) {
       completed={win.completed} 
       key={win.id}
       deleteWin={deleteWin}
+      editWin={editWin}
     />
   ));
 
