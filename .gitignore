@@ -20,8 +20,9 @@ coverage/
 .env.test.local
 .env.production.local
 .vscode/
-
 dist/
+
+firebase.config.js
 
 npm-debug.log*
 yarn-debug.log*
