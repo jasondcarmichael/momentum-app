@@ -1,16 +1,36 @@
 import { useState } from "react";
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../services/firebase.config';
+
+const collectionRef = collection(db, 'win');
 
 export default function Form(props) {
     const [name, setName] = useState("");
+    const [createWin, setCreateWin] = useState("");
 
     function handleChange(e) {
         setName(e.target.value);
+        setCreateWin(e.target.value);
      }
 
-    function handleSubmit(e) {
+    // function handleSubmit(e) {
+    //     e.preventDefault();
+    //     props.addWin(name);
+    //     setName("");  
+    // }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        props.addWin(name);
-        setName("");
+        try {
+            await addDoc(collectionRef, {
+                win: createWin,
+                timestamp: serverTimestamp()
+            })
+            window.location.reload();
+            console.log("sent to firebase!")
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return (
