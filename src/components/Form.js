@@ -2,9 +2,10 @@ import { useState } from "react";
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../services/firebase.config';
 
-const collectionRef = collection(db, 'win');
+
 
 export default function Form(props) {
+    const collectionRef = collection(db, 'win');
     const [name, setName] = useState("");
     const [createWin, setCreateWin] = useState("");
 
@@ -27,7 +28,6 @@ export default function Form(props) {
                 timestamp: serverTimestamp()
             })
             window.location.reload();
-            console.log("sent to firebase!")
         } catch (err) {
             console.log(err)
         }

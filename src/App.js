@@ -1,12 +1,32 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from './services/firebase.config';
 import DateTime from './components/DateTime';
 import Form from './components/Form';
 import Win from './components/Win';
 
 function App(props) {
+  const collectionRef = collection(db, 'win');
+  const [fetchWins, setFetchWins] = useState([]);
+
+
   const [wins, setWins] = useState(props.wins);
+
+  useEffect(() => {
+    const getWins = async () => {
+      await getDocs(collectionRef).then((win) => {
+        let winsData = win.docs.map((doc) => ({ ...doc.data(), id: doc.id}))
+        setFetchWins(winsData);
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
+    getWins();
+  }, [collectionRef]);
+
+
   
   function addWin(name) {
     const newWin = { id: `win-${nanoid()}`, name};
@@ -28,16 +48,26 @@ function App(props) {
     setWins(editedWinsList)
   }
 
-  const winsList = wins.map((win) => (
+  const winsList = fetchWins.map(({ win, id }) => (
     <Win 
-      id={win.id} 
-      name={win.name} 
-      completed={win.completed} 
-      key={win.id}
+      id={id} 
+      name={win}  
+      key={id}
       deleteWin={deleteWin}
       editWin={editWin}
     />
   ));
+
+  // const winsList = wins.map((win) => (
+  //   <Win 
+  //     id={win.id} 
+  //     name={win.name} 
+  //     completed={win.completed} 
+  //     key={win.id}
+  //     deleteWin={deleteWin}
+  //     editWin={editWin}
+  //   />
+  // ));
 
   
   const winsNoun = winsList.length !== 1 ? "accomplishments" : "accomplishment";
