@@ -1,4 +1,7 @@
 import { useState } from "react"
+import { doc, deleteDoc } from 'firebase/firestore';
+import { db } from '../services/firebase.config';
+
 
 export default function Win(props) {
     const [isEditing, setEditing] = useState(false);
@@ -13,6 +16,17 @@ export default function Win(props) {
         props.editWin(props.id, newName);
         setNewName("");
         setEditing(false);
+    }
+
+    const deleteWin = async (id) => {
+        try {
+            window.confirm("Are you sure you want to delete this accomplishment?")
+            const documentRef = doc(db, "win", `${id}`);
+            await deleteDoc(documentRef)
+            window.location.reload();
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     const editingForm = (
@@ -69,7 +83,10 @@ export default function Win(props) {
                 <button 
                     type="button" 
                     className="btn btn__danger"
-                    onClick={() => props.deleteWin(props.id)}
+                    
+                    onClick={(id) => deleteWin(id)}
+
+                    // onClick={() => props.deleteWin(props.id)}
                 >
                 Delete <span className="visually-hidden">{props.name}</span>
                 </button>

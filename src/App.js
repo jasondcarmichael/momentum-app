@@ -11,7 +11,6 @@ function App(props) {
   const collectionRef = collection(db, 'win');
   const [fetchWins, setFetchWins] = useState([]);
 
-
   const [wins, setWins] = useState(props.wins);
 
   useEffect(() => {
@@ -19,11 +18,13 @@ function App(props) {
       await getDocs(collectionRef).then((win) => {
         let winsData = win.docs.map((doc) => ({ ...doc.data(), id: doc.id}))
         setFetchWins(winsData);
+     
       }).catch((err) => {
         console.log(err);
       })
     }
     getWins();
+    
   }, [collectionRef]);
 
 
