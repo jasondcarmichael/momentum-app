@@ -21,7 +21,7 @@ export default function Win(props) {
     const deleteWin = async (id) => {
         try {
             window.confirm("Are you sure you want to delete this accomplishment?")
-            const documentRef = doc(db, "win", `${id}`);
+            const documentRef = doc(db, "win", id);
             await deleteDoc(documentRef)
             window.location.reload();
         } catch (err) {
@@ -46,13 +46,13 @@ export default function Win(props) {
             <div className="btn-group">
             <button
                 type="button" 
-                className="btn win-cancel"
+                className="btn btn-secondary"
                 onClick={() => setEditing(false)}
             >
                 Cancel
                 <span className="visually-hidden">renaming {props.name}</span>
             </button>
-            <button type="submit" className="btn btn__primary win-edit">
+            <button type="submit" className="btn btn-primary">
                 Save
                 <span className="visually-hidden">new name for {props.name}</span>
             </button>
@@ -75,16 +75,16 @@ export default function Win(props) {
             <div className="btn-group">
                 <button
                     type="button"
-                    className="btn"
+                    className="btn btn-primary"
                     onClick={() => setEditing(true)}
                 >
                 Edit <span className="visually-hidden">{props.name}</span>
                 </button>
                 <button 
                     type="button" 
-                    className="btn btn__danger"
+                    className="btn btn-danger"
                     
-                    onClick={(id) => deleteWin(id)}
+                    // onClick={() => deleteWin(id)}
 
                     // onClick={() => props.deleteWin(props.id)}
                 >

@@ -49,7 +49,7 @@ export default function Form(props) {
                 value={name}
                 onChange={handleChange}
             />
-            <button type="submit" className="btn btn__primary btn__lg">
+            <button type="submit" className="btn btn-primary">
                 Add
             </button>
         </form>
