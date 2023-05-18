@@ -81,15 +81,15 @@ function App(props) {
       <h2> Celebrate Your Daily Wins </h2>
       <DateTime />
       <Form addWin={addWin}/>
-      <h3 id="list-heading" tabIndex="-1">
-            {winsHeading}
-          </h3>
 
       <div className="container">
         <div className="row">
           <div className="col-md-12">
             <div className="card card-white">
               <div className="card-body">
+                <h3 id="list-heading" tabIndex="-1">
+                  {winsHeading}
+                </h3>
                 <div className="wins-list">
                   {winsList}
                 </div>

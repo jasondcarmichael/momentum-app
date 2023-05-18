@@ -13,8 +13,15 @@ code {
     monospace;
 }
 
+#list-heading {
+  margin-top: 10px;
+  text-align: center;
+
+}
+
 .wins-list {
   margin: 10px 0;
+  list-style: none;
 }
 
 .wins-list .win-item {
