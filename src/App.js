@@ -1,4 +1,4 @@
-import './App.css';
+// import './App.css';
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { collection, getDocs } from 'firebase/firestore';
@@ -76,28 +76,29 @@ function App(props) {
 
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1 className="header-lg">Momentum</h1>
-        <h2>
-          Celebrate Your Daily Wins
-        </h2>
-       
-        <DateTime />
-        
+    <>
+      <h1 className="header-lg">Momentum</h1>
+      <h2> Celebrate Your Daily Wins </h2>
+      <DateTime />
+      <Form addWin={addWin}/>
+      <h3 id="list-heading" tabIndex="-1">
+            {winsHeading}
+          </h3>
 
-        <Form addWin={addWin}/>
-
-        <h3 id="list-heading" tabIndex="-1">
-          {winsHeading}
-        </h3>
-        <ul className="win-list stack-large stack exception">
-          {winsList}
-        </ul>
-
-         
-      </header>
-    </div>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="card card-white">
+              <div className="card-body">
+                <div className="wins-list">
+                  {winsList}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 

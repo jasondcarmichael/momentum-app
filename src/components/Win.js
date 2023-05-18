@@ -61,35 +61,43 @@ export default function Win(props) {
     );
 
     const viewWin = (
-        <div className="stack-small">
-            <div className="c-cb">
-                <input 
-                    id={props.id}
-                    type="checkbox" 
-                    defaultChecked={true}
-                />
-                <label className="win-label" htmlFor={props.id}>
-                    {props.name}
-                </label>
-            </div>
-            <div className="btn-group">
+        <div className="win-item">
+            <hr />
+            <span>
+                <div className="c-cb">
+                    <input 
+                        id={props.id}
+                        type="checkbox" 
+                        defaultChecked={true}
+                    />
+                    <label className="win-label" htmlFor={props.id}>
+                        {props.name}
+                    </label>
+                </div>
+            </span>
+            <span className="float-end mx-3">
                 <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => setEditing(true)}
-                >
-                Edit <span className="visually-hidden">{props.name}</span>
-                </button>
-                <button 
-                    type="button" 
-                    className="btn btn-danger"
-                    
-                    // onClick={() => deleteWin(id)}
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={() => setEditing(true)}
+                    >
+                    Edit <span className="visually-hidden">{props.name}</span>
+                    </button>
+                    <button 
+                        type="button" 
+                        className="btn btn-danger float-end"
+                        
+                        // onClick={() => deleteWin(id)}
 
-                    // onClick={() => props.deleteWin(props.id)}
-                >
-                Delete <span className="visually-hidden">{props.name}</span>
+                        // onClick={() => props.deleteWin(props.id)}
+                    >
+                    Delete <span className="visually-hidden">{props.name}</span>
                 </button>
+            </span>
+            
+            <div className="btn-group">
+                
+                
             </div>
         </div>
     );
