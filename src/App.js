@@ -1,31 +1,43 @@
 // import './App.css';
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, query, onSnapshot } from 'firebase/firestore';
 import { db } from './services/firebase.config';
 import DateTime from './components/DateTime';
 import Form from './components/Form';
 import Win from './components/Win';
 
 function App(props) {
-  const collectionRef = collection(db, 'win');
+  // const collectionRef = collection(db, 'win');
   const [fetchWins, setFetchWins] = useState([]);
 
   const [wins, setWins] = useState(props.wins);
 
-  useEffect(() => {
-    const getWins = async () => {
-      await getDocs(collectionRef).then((win) => {
-        let winsData = win.docs.map((doc) => ({ ...doc.data(), id: doc.id}))
-        setFetchWins(winsData);
+  // useEffect(() => {
+  //   const getWins = async () => {
+  //     await getDocs(collectionRef).then((win) => {
+  //       let winsData = win.docs.map((doc) => ({ ...doc.data(), id: doc.id}))
+  //       setFetchWins(winsData);
      
-      }).catch((err) => {
-        console.log(err);
-      })
-    }
-    getWins();
-    
-  }, [collectionRef]);
+  //     }).catch((err) => {
+  //       console.log(err);
+  //     })
+  //   }
+  //   getWins(); 
+  // }, [collectionRef]);
+
+  useEffect(()=> {
+    const q = query(collection(db, 'wins'))
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        let winsArr = []
+        querySnapshot.forEach((doc) => {
+            winsArr.push({...doc.data(), id: doc.id})
+        });
+        setFetchWins(winsArr)
+        console.log(winsArr)
+    })
+    return () => unsubscribe()
+}, [])
 
 
   
@@ -49,15 +61,15 @@ function App(props) {
     setWins(editedWinsList)
   }
 
-  const winsList = fetchWins.map(({ win, id }) => (
-    <Win 
-      id={id} 
-      name={win}  
-      key={id}
-      deleteWin={deleteWin}
-      editWin={editWin}
-    />
-  ));
+  // const winsList = fetchWins.map(({ win, id }) => (
+  //   <Win 
+  //     id={id} 
+  //     name={win}  
+  //     key={id}
+  //     deleteWin={deleteWin}
+  //     editWin={editWin}
+  //   />
+  // ));
 
   // const winsList = wins.map((win) => (
   //   <Win 
@@ -71,8 +83,8 @@ function App(props) {
   // ));
 
   
-  const winsNoun = winsList.length !== 1 ? "accomplishments" : "accomplishment";
-  const winsHeading = `${winsList.length} ${winsNoun} today!`
+  // const winsNoun = winsList.length !== 1 ? "accomplishments" : "accomplishment";
+  // const winsHeading = `${winsList.length} ${winsNoun} today!`
 
 
   return (
@@ -88,10 +100,19 @@ function App(props) {
             <div className="card card-white">
               <div className="card-body">
                 <h3 id="list-heading" tabIndex="-1">
-                  {winsHeading}
+                  {/* {winsHeading} */}
                 </h3>
                 <div className="wins-list">
-                  {winsList}
+                  {fetchWins.map((win, index)=> (
+                    <Win 
+                    // id={id} 
+                    win={win}  
+                    key={index}
+                    deleteWin={deleteWin}
+                    editWin={editWin}
+                  />
+                  ))}
+                  {/* {winsList} */}
                 </div>
               </div>
             </div>
