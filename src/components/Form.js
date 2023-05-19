@@ -2,10 +2,7 @@ import { useState } from "react";
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../services/firebase.config';
 
-
-
 export default function Form(props) {
-    const collectionRef = collection(db, 'win');
     const [name, setName] = useState("");
     const [createWin, setCreateWin] = useState("");
 
@@ -14,23 +11,17 @@ export default function Form(props) {
         setCreateWin(e.target.value);
      }
 
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     props.addWin(name);
-    //     setName("");  
-    // }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await addDoc(collectionRef, {
-                win: createWin,
-                timestamp: serverTimestamp()
-            })
-            window.location.reload();
-        } catch (err) {
-            console.log(err)
+        if(name === '') {
+            alert('Please enter some text')
+            return
         }
+        await addDoc(collection(db, 'wins'), {
+            text: createWin,
+            timestamp: serverTimestamp()
+        })
+        setName('')
     }
 
     return (

@@ -1,14 +1,12 @@
-// import './App.css';
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
-import { collection, query, onSnapshot } from 'firebase/firestore';
+import { collection, query, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { db } from './services/firebase.config';
 import DateTime from './components/DateTime';
 import Form from './components/Form';
 import Win from './components/Win';
 
 function App(props) {
-  // const collectionRef = collection(db, 'win');
   const [fetchWins, setFetchWins] = useState([]);
 
   const [wins, setWins] = useState(props.wins);
@@ -37,7 +35,12 @@ function App(props) {
         console.log(winsArr)
     })
     return () => unsubscribe()
-}, [])
+  }, [])
+
+  const deleteWin = async (id) => {
+    window.confirm("Are you sure you want to delete this accomplishment?")
+    await deleteDoc(doc(db, 'wins', id))
+  }
 
 
   
@@ -46,10 +49,6 @@ function App(props) {
     setWins([...wins, newWin])
   }
 
-  function deleteWin(id) {
-    const remainingWins = wins.filter((win) => id !== win.id);
-    setWins(remainingWins);
-  }
 
   function editWin(id, newName) {
     const editedWinsList = wins.map((win) => {
@@ -61,30 +60,8 @@ function App(props) {
     setWins(editedWinsList)
   }
 
-  // const winsList = fetchWins.map(({ win, id }) => (
-  //   <Win 
-  //     id={id} 
-  //     name={win}  
-  //     key={id}
-  //     deleteWin={deleteWin}
-  //     editWin={editWin}
-  //   />
-  // ));
-
-  // const winsList = wins.map((win) => (
-  //   <Win 
-  //     id={win.id} 
-  //     name={win.name} 
-  //     completed={win.completed} 
-  //     key={win.id}
-  //     deleteWin={deleteWin}
-  //     editWin={editWin}
-  //   />
-  // ));
-
-  
-  // const winsNoun = winsList.length !== 1 ? "accomplishments" : "accomplishment";
-  // const winsHeading = `${winsList.length} ${winsNoun} today!`
+  const winsNoun = fetchWins.length !== 1 ? "accomplishments" : "accomplishment";
+  const winsHeading = `${fetchWins.length} ${winsNoun} today!`
 
 
   return (
@@ -99,9 +76,11 @@ function App(props) {
           <div className="col-md-12">
             <div className="card card-white">
               <div className="card-body">
-                <h3 id="list-heading" tabIndex="-1">
-                  {/* {winsHeading} */}
-                </h3>
+                {fetchWins.length < 1 ? null : 
+                  <h3 id="list-heading" tabIndex="-1">
+                  {winsHeading}
+                  </h3>
+                }
                 <div className="wins-list">
                   {fetchWins.map((win, index)=> (
                     <Win 
@@ -112,7 +91,6 @@ function App(props) {
                     editWin={editWin}
                   />
                   ))}
-                  {/* {winsList} */}
                 </div>
               </div>
             </div>

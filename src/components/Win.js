@@ -3,7 +3,7 @@ import { useState } from "react"
 // import { db } from '../services/firebase.config';
 
 
-export default function Win({win}) {
+export default function Win({ win, deleteWin }) {
 
     return (
 
@@ -33,10 +33,7 @@ export default function Win({win}) {
                     <button 
                         type="button" 
                         className="btn btn-danger float-end"
-                        
-                        // onClick={() => deleteWin(id)}
-
-                        // onClick={() => props.deleteWin(props.id)}
+                        onClick={() => deleteWin(win.id)}
                     >
                     Delete <span className="visually-hidden">{win.text}</span>
                 </button>
