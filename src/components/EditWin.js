@@ -2,14 +2,14 @@ import { useState } from "react";
 import { doc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../services/firebase.config';
 
-const EditWin = ({win, editWin}) => {
+const EditWin = ({win}) => {
     const [updateWin, setUpdateWin] = useState([])
     
     function handleChange(e) {
         setUpdateWin(e.target.value);
      }
 
-     const handleSubmit = async (e) => {
+     const handleUpdate = async (e) => {
         e.preventDefault()
         await updateDoc(doc(db, 'wins', win.id), {
           text: updateWin,
@@ -19,6 +19,10 @@ const EditWin = ({win, editWin}) => {
         setUpdateWin("")
       }
 
+      const handleEdit = (win) => {
+        console.log(win.text)
+      }
+
     return (
         <>
             <button
@@ -26,6 +30,8 @@ const EditWin = ({win, editWin}) => {
                 className="btn btn-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
+                win={win}
+                onClick={handleEdit}
                 >
                 Edit
             </button>
@@ -56,8 +62,8 @@ const EditWin = ({win, editWin}) => {
                             <input
                                 type="text"
                                 className="form-control"
+                                placeholder={win.text}
                                 onChange={handleChange}
-                                // onChange={() => editWin(win)}
                             />
                             </form>
                         </div>
@@ -70,7 +76,7 @@ const EditWin = ({win, editWin}) => {
                             <button
                                 type="submit"
                                 className="btn btn-primary"
-                                onClick={handleSubmit}
+                                onClick={handleUpdate}
                             >Update Win</button>
                         </div>
                     </div>
