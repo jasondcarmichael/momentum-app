@@ -1,4 +1,24 @@
-const EditWin = () => {
+import { useState } from "react";
+import { doc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../services/firebase.config';
+
+const EditWin = ({win, editWin}) => {
+    const [updateWin, setUpdateWin] = useState([])
+    
+    function handleChange(e) {
+        setUpdateWin(e.target.value);
+     }
+
+     const handleSubmit = async (e) => {
+        e.preventDefault()
+        await updateDoc(doc(db, 'wins', win.id), {
+          text: updateWin,
+          timestamp: serverTimestamp()
+        })
+        window.location.reload();
+        setUpdateWin("")
+      }
+
     return (
         <>
             <button
@@ -32,10 +52,12 @@ const EditWin = () => {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <form className="d-flex">
+                            <form className="d-flex" >
                             <input
                                 type="text"
                                 className="form-control"
+                                onChange={handleChange}
+                                // onChange={() => editWin(win)}
                             />
                             </form>
                         </div>
@@ -46,8 +68,9 @@ const EditWin = () => {
                                 data-bs-dismiss="modal">Close
                             </button>
                             <button
-                                type="button"
+                                type="submit"
                                 className="btn btn-primary"
+                                onClick={handleSubmit}
                             >Update Win</button>
                         </div>
                     </div>

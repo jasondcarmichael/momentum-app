@@ -56,17 +56,3 @@ const deleteWin = async (id) => {
     }
 }
 
-// Edit Data
-
-/// FETCH from Video
-useEffect(()=> {
-    const q = query(collection(db, 'wins'))
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        let winsArr = []
-        querySnapshot.forEach((doc) => {
-            winsArr.push({...doc.data(), id: doc.id})
-        });
-        setFetchWins(winsArr)
-    })
-    return () => unsubscribe()
-}, [])
