@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
-import { collection, query, onSnapshot, deleteDoc, doc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, query, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { db } from './services/firebase.config';
 import DateTime from './components/DateTime';
 import Form from './components/Form';
@@ -28,50 +28,28 @@ function App(props) {
     window.confirm("Are you sure you want to delete this accomplishment?")
     await deleteDoc(doc(db, 'wins', id))
   }
-
-  // const editWin = async (win) => {
-  //   await updateDoc(doc(db, 'wins', win.id), {
-  //     text: updateWin,
-  //     timestamp: serverTimestamp()
-  //   })
-  // }
-
-  
-
-
-  
+ 
   function addWin(name) {
     const newWin = { id: `win-${nanoid()}`, name};
     setWins([...wins, newWin])
   }
 
-
-  // function editWin(id, newName) {
-  //   const editedWinsList = wins.map((win) => {
-  //     if (id === win.id) {
-  //       return { ...win, name: newName };
-  //     }
-  //     return win;
-  //   });
-  //   setWins(editedWinsList)
-  // }
-
-  const winsNoun = fetchWins.length !== 1 ? "accomplishments" : "accomplishment";
-  const winsHeading = `${fetchWins.length} ${winsNoun} today!`
-
+  const winsNoun = fetchWins.length !== 1 ? "Accomplishments" : "Accomplishment";
+  const winsHeading = `${fetchWins.length} ${winsNoun} Today!`
 
   return (
     <>
       <h1 className="header-lg">Momentum</h1>
       <h2> Celebrate Your Daily Wins </h2>
       <DateTime />
-      <Form addWin={addWin}/>
+     
 
       <div className="container">
         <div className="row">
           <div className="col-md-12">
             <div className="card card-white">
               <div className="card-body">
+                <Form addWin={addWin}/>
                 {fetchWins.length < 1 ? null : 
                   <h3 id="list-heading" tabIndex="-1">
                   {winsHeading}
@@ -83,7 +61,6 @@ function App(props) {
                       win={win}  
                       key={index}
                       deleteWin={deleteWin}
-                      // editWin={editWin}
                     />
                     ))}
                 </div>

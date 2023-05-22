@@ -13,10 +13,27 @@ code {
     monospace;
 }
 
+#add-button {
+  margin-left: 10px;
+}
+
 #list-heading {
   margin-top: 10px;
   text-align: center;
 
+}
+
+#new-win-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#new-win-input {
+  flex-grow: 2;
 }
 
 .wins-list {

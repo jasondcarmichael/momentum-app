@@ -25,24 +25,25 @@ export default function Form(props) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h3 className="label-wrapper">
-                <label htmlFor="new-win-input" className="label__lg">
-                What I accomplished today:
-                </label>
-            </h3>
-            <input
-                type="text"
-                id="new-win-input"
-                className="input input__lg"
-                name="text"
-                autoComplete="off"
-                value={name}
-                onChange={handleChange}
-            />
-            <button type="submit" className="btn btn-primary">
-                Add
-            </button>
+        <form  id="new-win-form" onSubmit={handleSubmit}>
+            <div id="new-win-input">
+                <input
+                    type="text"
+                    
+                    className="form-control form-control-lg"
+                    name="text"
+                    placeholder="What I Accomplished..."
+                    autoComplete="off"
+                    value={name}
+                    onChange={handleChange}
+                />
+            </div>
+            <div id="add-button">
+                <button type="submit" className="btn btn-primary" >
+                    Add
+                </button>
+            </div>
+     
         </form>
     )
 }
