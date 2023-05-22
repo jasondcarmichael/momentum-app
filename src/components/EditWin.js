@@ -23,6 +23,10 @@ const EditWin = ({win}) => {
         console.log(win.text)
       }
 
+    //   const handleCancel = () => {
+    //     setUpdateWin("")
+    //   }
+
     return (
         <>
             <button
@@ -54,7 +58,9 @@ const EditWin = ({win}) => {
                                 type="button"
                                 className="btn-close"
                                 data-bs-dismiss="modal"
-                                aria-label="Close">
+                                aria-label="Close"
+                                // onClick={handleCancel}
+                            >
                             </button>
                         </div>
                         <div className="modal-body">

@@ -44,7 +44,7 @@ function App(props) {
           <div className="col-md-12">
             <div className="card card-white">
               <div className="card-body">
-                <h1 className="header-lg">Momentum: Celebrate Your Wins</h1>
+                <h1>Momentum: Celebrate Your Wins</h1>
                 <DateTime />
                 <Form addWin={addWin}/>
                 {fetchWins.length < 1 ? null : 

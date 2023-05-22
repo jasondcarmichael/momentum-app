@@ -5,7 +5,6 @@ export default function Win({ win, deleteWin, editWin }) {
     return (
         <div className="win-item">
             <p className="win-label">{win.text}</p>
-            
             <div className="button-group">
                 <EditWin win={win} id={win.id} editWin={editWin}/>
                 <button 
@@ -19,6 +18,3 @@ export default function Win({ win, deleteWin, editWin }) {
         </div>
     );     
 }
-
-// className="c-cb"
-// className="float-end"
