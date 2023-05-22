@@ -39,16 +39,14 @@ function App(props) {
 
   return (
     <>
-      <h1 className="header-lg">Momentum</h1>
-      <h2> Celebrate Your Daily Wins </h2>
-      <DateTime />
-     
-
       <div className="container">
         <div className="row">
           <div className="col-md-12">
             <div className="card card-white">
               <div className="card-body">
+                <h1 className="header-lg">Momentum</h1>
+                <h3> Celebrate Your Daily Wins </h3>
+                <DateTime />
                 <Form addWin={addWin}/>
                 {fetchWins.length < 1 ? null : 
                   <h3 id="list-heading" tabIndex="-1">

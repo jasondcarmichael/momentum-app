@@ -29,7 +29,6 @@ export default function Form(props) {
             <div id="new-win-input">
                 <input
                     type="text"
-                    
                     className="form-control form-control-lg"
                     name="text"
                     placeholder="What I Accomplished..."
