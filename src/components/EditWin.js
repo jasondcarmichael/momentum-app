@@ -3,16 +3,8 @@ import { doc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../services/firebase.config';
 
 const EditWin = ({win, index}) => {
-    console.log(win, index)
-    
     const id = win.id
-
     const [updateWin, setUpdateWin] = useState(win.text)
-    // const [tempId, setTempId] = useState()
-    
-    // function handleChange(e) {
-    //     setUpdateWin(e.target.value);
-    //  }
 
      const handleUpdate = async (e) => {
         e.preventDefault()
@@ -24,15 +16,6 @@ const EditWin = ({win, index}) => {
         setUpdateWin("")
       }
 
-    //   const handleEdit = (win) => {
-    //     setUpdateWin(win.text)
-    //     console.log(win)
-    //   }
-
-    //   const handleCancel = () => {
-    //     setUpdateWin("")
-    //   }
-
     return (
         <>
             <button
@@ -40,7 +23,6 @@ const EditWin = ({win, index}) => {
                 className="btn btn-primary"
                 data-bs-toggle="modal"
                 data-bs-target={`#id${id}`}
-                // data-bs-target="#exampleModal"
                 >
                 Edit
             </button>
@@ -48,7 +30,6 @@ const EditWin = ({win, index}) => {
             <div
                 className="modal fade"
                 id={`id${id}`}
-                // id="exampleModal"
                 key={index}
                 tabIndex="-1"
                 aria-labelledby="editLabel"

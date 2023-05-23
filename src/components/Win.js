@@ -19,9 +19,3 @@ export default function Win({ win, deleteWin, index, editWin }) {
         </div>
     );     
 }
-
-
-/// PsuedoCode
-/// When I click EDIT, the Text and Id of the Win should go into the EDIT modal.
-/// Where is the WIN and ID being stored?
-/// win={win.text} id={win.id} editWin={editWin}
