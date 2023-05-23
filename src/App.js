@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
 import { collection, query, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { db } from './services/firebase.config';
 import DateTime from './components/DateTime';
 import Form from './components/Form';
 import Win from './components/Win';
 
-function App(props) {
+function App() {
   const [fetchWins, setFetchWins] = useState([]);
   
-  const [wins, setWins] = useState(props.wins);
-
   useEffect(()=> {
     const q = query(collection(db, 'wins'))
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -29,11 +26,6 @@ function App(props) {
     await deleteDoc(doc(db, 'wins', id))
   }
  
-  function addWin(name) {
-    const newWin = { id: `win-${nanoid()}`, name};
-    setWins([...wins, newWin])
-  }
-
   const winsNoun = fetchWins.length !== 1 ? "Accomplishments" : "Accomplishment";
   const winsHeading = `${fetchWins.length} ${winsNoun} Today!`
 
@@ -46,7 +38,7 @@ function App(props) {
               <div className="card-body">
                 <h1>Momentum: Celebrate Your Wins</h1>
                 <DateTime />
-                <Form addWin={addWin}/>
+                <Form />
                 {fetchWins.length < 1 ? null : 
                   <h3 id="list-heading" tabIndex="-1">
                   {winsHeading}

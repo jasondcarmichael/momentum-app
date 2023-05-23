@@ -53,6 +53,11 @@ button {
   align-items: center;
 }
 
+.win-item:hover {
+  background-color: rgb(242, 242, 242);
+  cursor: pointer;
+}
+
 .wins-list {
   margin: 10px 0;
   list-style: none;

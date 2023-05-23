@@ -2,7 +2,7 @@ import { useState } from "react";
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../services/firebase.config';
 
-export default function Form(props) {
+export default function Form() {
     const [name, setName] = useState("");
     const [createWin, setCreateWin] = useState("");
 
