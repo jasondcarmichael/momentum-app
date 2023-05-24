@@ -4,7 +4,7 @@ import { db } from '../services/firebase.config';
 
 const EditWin = ({win, index}) => {
     const id = win.id
-    const [updateWin, setUpdateWin] = useState(win.text)
+    const [updateWin, setUpdateWin] = useState([win])
 
      const handleUpdate = async (e) => {
         e.preventDefault()
@@ -54,7 +54,7 @@ const EditWin = ({win, index}) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                defaultValue={win}
+                                defaultValue={win.text}
                                 onChange={(e) => setUpdateWin(e.target.value)}
                             />
                             </form>

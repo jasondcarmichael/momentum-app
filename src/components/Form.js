@@ -21,6 +21,7 @@ export default function Form() {
             text: createWin,
             timestamp: serverTimestamp()
         })
+        window.location.reload();
         setName('')
     }
 

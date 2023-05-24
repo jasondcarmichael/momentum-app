@@ -23,7 +23,8 @@ function App() {
 
   const deleteWin = async (id) => {
     window.confirm("Are you sure you want to delete this accomplishment?")
-    await deleteDoc(doc(db, 'wins', id))
+    await deleteDoc(doc(db, 'wins', id));
+    window.location.reload();
   }
  
   const winsNoun = fetchWins.length !== 1 ? "Accomplishments" : "Accomplishment";
